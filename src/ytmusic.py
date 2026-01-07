@@ -2,7 +2,7 @@ import os
 import requests
 from tqdm import tqdm
 from ytmusicapi import YTMusic, OAuthCredentials
-from typing import List, Dict, Any, Optional, Union, Tuple
+from typing import List, Dict, Any, Optional, Set, Union, Tuple
 import yaml
 
 from src.track import Track
@@ -141,10 +141,6 @@ class YTMusicClient:
             return results[0]
         return songs[0]
 
-    def get_api(self) -> YTMusic:
-        """Get the underlying ytmusicapi instance"""
-        return self.ytmusic
-
     # ===== Playlist Management Methods =====
 
     def get_playlists(self, limit: Optional[int] = 100) -> List[Dict[str, Any]]:
@@ -209,6 +205,13 @@ class YTMusicClient:
         except Exception as e:
             print(f"Error getting playlist {playlist_id}: {e}")
             return {}
+        
+    def get_playlist_artists(self, playlist: Dict[str, Any]) -> Set[str]:
+        artists = set()
+        for track in playlist["tracks"]:
+            for artist in track["artists"]:
+                artists.add(artist["name"])
+        return artists
 
     def add_playlist_items(
         self, playlist_id: str, video_ids: List[str]
@@ -366,3 +369,43 @@ class YTMusicClient:
                 if track["artists"][0]["name"] in playlist_info["artists"]:
                     add_tracks.append(track["videoId"])
             self.add_playlist_items(playlist_info["id"], add_tracks)
+    
+    def update_playlists_map(self, output_file: str = "playlists_map_updated.yaml"):
+        """
+        Update playlists_map.yaml file with current playlists and their artists.
+        Excludes playlists with IDs in ["LM", "SE"].
+        
+        Args:
+            output_file: Path to save the updated playlists map
+        """
+        print("Fetching playlists...")
+        playlists = self.get_playlists()
+        
+        if not playlists:
+            print("No playlists found.")
+            return
+        
+        # Filter out excluded playlists
+        excluded_ids = ["LM", "SE"]
+        filtered_playlists = [ p for p in playlists if p.get("playlistId") not in excluded_ids ]
+        
+        print(f"Found {len(filtered_playlists)} playlists (excluding LM and SE)")
+        
+        playlists_map = {}
+        
+        for playlist_metadata in tqdm(filtered_playlists, desc="Processing playlists"):
+            
+            playlist = self.get_playlist(playlist_metadata["playlistId"])
+            artists = self.get_playlist_artists(playlist)
+            key = playlist_metadata["title"].replace(":", " -")  # Avoid YAML key issues with colons
+            
+            playlists_map[key] = {
+                "id": playlist["id"],
+                "artists": sorted(list(artists))
+            }
+        
+        with open(output_file, "w", encoding="utf-8") as f:
+            yaml.dump(playlists_map, f, allow_unicode=True, default_flow_style=False, sort_keys=False)
+        
+        print(f"\n✓ Updated playlists map saved to {output_file}")
+        print(f"Total playlists in map: {len(playlists_map)}")

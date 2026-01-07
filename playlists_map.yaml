@@ -1,53 +1,35 @@
 Sum 41:
   id: PL9ndrSS7dnNzzcz18O-CzGBDMH1Cw1QnA
   artists:
-  - Sum 41
   - Iron Maiden
   - Judas Priest
-SOAD:
-  id: PL9ndrSS7dnNxr1TE_JdE5A-ROtXXeOvpZ
+  - Sum 41
+Jazz:
+  id: PL9ndrSS7dnNz8ZbIl9de4YNJTp4N-oSnE
   artists:
-  - System Of A Down
-  - Linkin Park
-
-Draggons:
-  id: PL9ndrSS7dnNx4L1a3ARms3XSkLrcLbaxx
+  - Preservation Hall Jazz Band
+Classical:
+  id: PL9ndrSS7dnNww4bIU3KXyWg2iZ_I9KfCR
   artists:
-  - Muse
-  - Imagine Dragons
-Rammstein:
-  id: PL9ndrSS7dnNwAmUbKAq4rdqjbGK3TL0dg
+  - Beethoven
+  - Efisio Cross
+  - Imperial Orchestra
+  - Murat İşbilen Ensemble
+Georgian:
+  id: PL9ndrSS7dnNzgCo1g3N5pJTV3wrOYzSm9
   artists:
-  - Rammstein
-  - Lindemann
-  - Scorpions
-Metallica:
-  id: PL9ndrSS7dnNzYYwyppMDnPBG6KdiibX9u
-  artists:
-  - Metallica
-  - Powerwolf
-  - Disturbed
-  - Sabaton
-  - Skillet
-Hammerfall:
-  id: PL9ndrSS7dnNynZTQonKFr12E0AjP8b3eS
-  artists:
-  - Hammerfall
-  - Nightwish
-  - Lord Of The Lost
-  - Allen Lande
-  - Civil War
-  - Nils Patrik Johansson
-Twisted Sister:
-  id: PL9ndrSS7dnNwmPH-1ih-qXpwbDsAbH67-
-  artists:
-  - Mötley Crüe
-  - Twisted Sister
-  - Bon Jovi
-  - Guns N' Roses
-  - Red Hot Chili Peppers
-  - Кипелов
-  - Ария
+  - Batuhan Şenel
+  - Bzabza
+  - Ensemble circassien de Jordanie
+  - Georgian Folk
+  - Lela Tataraidze
+  - Nino Chkheidze
+  - Sukhishvili Georgian National Ballet
+  - Альберт Валиев
+  - Торнике Квитатиани
+  - ანსამბლი "ქართული ხმები"
+  - ანსამბლი კელაპტარი
+  - იური გოგოლაური
 Deep Purple:
   id: PL9ndrSS7dnNy9aFrEx24ERHc6vWu0ZkzL
   artists:
@@ -55,61 +37,73 @@ Deep Purple:
   - Led Zeppelin
   - Pink Floyd
   - Queen
-КиШ:
-  id: PL9ndrSS7dnNyMe7vGMf5TN51Sv8FMd-nB
+Metallica:
+  id: PL9ndrSS7dnNzYYwyppMDnPBG6KdiibX9u
   artists:
-  - Сказки Чёрного Города
-  - КняZz
-  - Кукольный театр
-  - Спектакль Джо
-  - Король и Шут
+  - Disturbed
+  - Metallica
+  - Powerwolf
+  - Sabaton
+  - Skillet
+SOAD:
+  id: PL9ndrSS7dnNxr1TE_JdE5A-ROtXXeOvpZ
+  artists:
+  - Linkin Park
+  - System Of A Down
 Guitar:
   id: PL9ndrSS7dnNxBIfmdolfe4k0zlPzTkzqP
   artists:
-  - Песни под гитару
-  - Песни нашего века
-  - Борис Гребенщиков
-  - АКВАРИУМ
-  - Неизвестный исполнитель
-  - Urii Loza
-  - Наутилус Помпилиус
-  - Зодчие
-  - Порнофильмы
-  - BY Effect
-  - Альфа
-  - Nautilus Pompilius
-  - ЧайФ
-  - Пикник
-  - Земляне
+  - Агата Кристи
+  - Андрей Миронов
+  - Би-2
+  - Браво
   - ДДТ
   - Звери
-  - Юрий Хой
-  - Андрей Миронов
-  - Сектор Газа
-  - Александр Васильев
-  - Ногу свело!
-  - КИНО
-  - Серов Aлександр
-  - Мёртвые Дельфины
-  - Песни у костра
-  - Машина времени
-  - Сплин
-  - Би-2
-  - Магелланово Облако
-  - Виктор Цой
-  - Мумий Тролль
-  - Браво
-  - Крематорий
-  - Танцы Минус
-  - Павел Пиковский
-  - Аквариум
-  - Ляпис Трубецкой
-  - Агата Кристи
-  - Юрий Шевчук
-  - Арктида
-  - Порнофильмы
+  - Земляне
   - Земфира
-# Classical:
-#   id: asfdsd
-#   artists:
-#   - aaaaaa
+  - Крематорий
+  - Ляпис Трубецкой
+  - Магелланово Облако
+  - Мумий Тролль
+  - Мёртвые Дельфины
+  - Наутилус Помпилиус
+  - Павел Пиковский
+  - Пикник
+  - Порнофильмы
+  - Сплин
+  - Танцы Минус
+КиШ:
+  id: PL9ndrSS7dnNyMe7vGMf5TN51Sv8FMd-nB
+  artists:
+  - КняZz
+  - Король и Шут
+Twisted Sister:
+  id: PL9ndrSS7dnNwmPH-1ih-qXpwbDsAbH67-
+  artists:
+  - Bon Jovi
+  - Guns N' Roses
+  - Mötley Crüe
+  - Red Hot Chili Peppers
+  - Twisted Sister
+  - Ария
+  - Кипелов
+Hammerfall:
+  id: PL9ndrSS7dnNynZTQonKFr12E0AjP8b3eS
+  artists:
+  - Allen Lande
+  - Civil War
+  - Hammerfall
+  - Lord Of The Lost
+  - Nightwish
+  - Nils Patrik Johansson
+Rammstein:
+  id: PL9ndrSS7dnNwAmUbKAq4rdqjbGK3TL0dg
+  artists:
+  - Lindemann
+  - Rammstein
+  - Scorpions
+Dragons:
+  id: PL9ndrSS7dnNx4L1a3ARms3XSkLrcLbaxx
+  artists:
+  - Imagine Dragons
+  - Muse

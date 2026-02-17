@@ -21,6 +21,9 @@ class CLI:
         print("4. Get tracks from liked playlist")
         print("5. Print tracks to file")
         print("6. Update playlist map")
+        print("7. Distribute tracks by playlists")
+        print("8. Download playlists")
+        print("9. Download like tracks as playlist")
         print("q, quit, exit - Exit program")
         print("="*50)
     
@@ -99,6 +102,7 @@ class CLI:
         """Main CLI loop"""
         print("\n" + "="*50)
         print("YouTube Music CLI Started")
+        self.print_menu()
         print("Type 'help' to see this menu again")
         print("="*50)
         
@@ -126,6 +130,12 @@ class CLI:
                     print(f"Printed {len(tracks)} tracks to tracks.txt")
                 elif command in ['6', 'playlist_map']:
                     self.ytmusic.update_playlists_map("1.yaml")
+                elif command in ['7', 'distribute']:
+                    self.ytmusic.distribute_tracks()
+                elif command in ['8']:
+                    self.yamusic.download_playlists()
+                elif command in ['9']:
+                    self.yamusic.download_like_tracks()
                 else:
                     print("Unknown command. Type 'help' to see available commands.")
             

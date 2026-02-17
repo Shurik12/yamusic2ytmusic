@@ -1,0 +1,367 @@
+Bluz:
+  kind: 1078
+  artists:
+  - The Doors
+Jazz:
+  kind: 1077
+  artists:
+  - Benny Goodman
+  - Big Bad Voodoo Daddy
+  - John Rowcroft
+  - London Studio Big Band
+  - Preservation Hall Jazz Band
+  - Ray Charles
+  - Royal Crown Revue
+Drums:
+  kind: 1076
+  artists:
+  - Aerosmith
+  - Black Sabbath
+  - Bruce Dickinson
+  - Disturbed
+  - Eloy
+  - Iron Maiden
+  - Led Zeppelin
+  - Linkin Park
+  - Ozzy Osbourne
+  - Queen
+  - Rainbow
+  - Twisted Sister
+  - Volbeat
+Piano:
+  kind: 1074
+  artists:
+  - Piano by VN
+Georgian:
+  kind: 1073
+  artists:
+  - Berkay
+  - Berkay ŞENGÜL
+  - Bzabza
+  - Dj Chechen
+  - Ensemble circassien de Jordanie
+  - Georgian Folk
+  - Hari Mata Hari
+  - Hatti
+  - Lela Tataraidze
+  - Nino Chkheidze
+  - Samer Sami
+  - Sukhishvili Georgian National Ballet
+  - Trio Mandili
+  - Альберт Валиев
+  - Залим Кодзов
+  - Заурбек Гендуков
+  - Роман Шанков
+  - Торнике Квитатиани
+  - ანსამბლი "ქართული ხმები"
+  - იური გოგოლაური
+Новый:
+  kind: 1056
+  artists:
+  - Sonny & Cher
+  - Алла Пугачёва
+Hip hop:
+  kind: 1025
+  artists:
+  - 2Pac
+  - 50 Cent
+  - A3
+  - BG
+  - Bad Meets Evil
+  - Bill Conti
+  - Black Eyed Peas
+  - Cashis
+  - Chencho Corleone
+  - Choppa
+  - Coolio
+  - D12
+  - DJ Buddha
+  - DMX
+  - Daddy Yankee
+  - Don Omar
+  - Dr. Dre
+  - E.D.I
+  - El Alfa
+  - Eminem
+  - Farruko
+  - Fredwreck Nassar
+  - Giz
+  - Glory
+  - Hollywood Undead
+  - Héctor El Father
+  - IAMCHINO
+  - Jay Rock
+  - Jay-Z
+  - Jermaine Dupri
+  - Justin Quiles
+  - Kastro
+  - Kurupt
+  - L.V.
+  - Lil Jon
+  - Lil Jon & The East Side Boyz
+  - Lloyd Banks
+  - Miky Woodz
+  - Mr. Magic
+  - Nate Dogg
+  - Natti Natasha
+  - Noriega
+  - Obie Trice
+  - Olivia
+  - Omar Courtz
+  - Ozuna
+  - Pitbull
+  - Plan B
+  - Rassey
+  - Reggaetones
+  - Residente
+  - Roy Jones Jr.
+  - Savage
+  - Slim Jxmmi
+  - Snoop Dogg
+  - Swellz
+  - Tech N9ne
+  - The Game
+  - The Velvet Orchestra
+  - Timmy Trumpet
+  - Tommy Viera
+  - Tony Yayo
+  - Trick Trick
+  - Trouble
+  - Wisin
+  - Ying Yang Twins
+  - Young Noble
+  - Zion y Lennox
+  - Кипелов
+  - Сергей Шнуров
+Country:
+  kind: 1019
+  artists:
+  - Bon Iver
+  - Die Streuner
+  - Geoff Castellucci
+  - George Thorogood
+  - Home Free
+  - John Hardy
+  - Louis Armstrong
+  - Merv Griffin
+  - Poor Mans Poison
+  - Rodrigo y Gabriela
+  - SKÁLD
+  - Santiano
+  - Styx
+Шансон:
+  kind: 1018
+  artists:
+  - Ange Lanzalavi Trio
+  - Bruno Tafani
+  - Chris Norman
+  - Enrico Macias
+  - Gheorghe Zamfir
+  - Jérôme Ciosi
+  - Trio Garufa
+  - Vladimir Cosma
+  - Yann Tiersen
+  - Yves Montand
+  - Альфа
+  - Антон Лирник
+  - Ноль
+Dance:
+  kind: 1017
+  artists:
+  - Alban Fuam
+  - Ange Lanzalavi Trio
+  - Avi Avital
+  - Boris Savchuk
+  - Bruno Tafani
+  - Carlos Puebla
+  - Chris Norman
+  - Daddy Yankee
+  - Darrial
+  - Fanfare Ciocarlia
+  - Gheorghe Zamfir
+  - Joe Dassin
+  - Juanes
+  - Jérôme Ciosi
+  - London Orchestra
+  - Los Ninos de Sara
+  - Nathalie Cardone
+  - Paris Symphony Orchestra
+  - Pete Rodriguez
+  - Roberto Alagna
+  - Rodrigo y Gabriela
+  - Rosana
+  - Savage
+  - Tanito Tango
+  - The Mavericks
+  - Timmy Trumpet
+  - Trio Los Panchos
+  - Vladimir Cosma
+  - Yvan Cassar
+  - ВИА «Иверия»
+Classical:
+  kind: 1014
+  artists: []
+Punk:
+  kind: 1013
+  artists:
+  - Green Day
+  - Sum 41
+Rock&Roll:
+  kind: 1011
+  artists:
+  - Big Time Bossmen
+  - Bob Seger & The Silver Bullet Band
+  - Elvis Presley
+  - Geoff Castellucci
+  - Little Richard
+  - Raul Malo
+  - Switchblade 3
+  - The Atomic Fireballs
+  - The Mavericks
+Russian:
+  kind: 1010
+  artists: []
+Авторская песня:
+  kind: 1009
+  artists:
+  - Александр Городницкий
+  - Булат Окуджава
+  - Валерий Золотухин
+  - Валерий Чечет
+  - Виктор Берковский
+  - Владимир Высоцкий
+  - Дуэт “Русские Гитары”
+  - Жанна Бичевская
+  - Иван Жук
+  - Пётр Налич
+  - Чароит
+  - Элечка
+  - Юрий Визбор
+  - Юрий Кукин
+Pop:
+  kind: 1007
+  artists: []
+Tango:
+  kind: 1006
+  artists:
+  - Andres Falgas
+  - Carlos Casares
+  - Carlos Di Sarli
+  - Edgardo Donato
+  - Enrique Lucero
+  - Ernesto Fama
+  - Fabio Hager Sexteto
+  - Florindo Sassone Y Su Orquesta
+  - Francisco Canaro
+  - Hector Maure
+  - Hector Varela
+  - Hyperion Ensemble
+  - Jorge Ortiz
+  - Juan D'Arienzo
+  - Juan D'Arienzo y su Orquesta Tipica
+  - Los Auténticos Reyes
+  - Miguel Calo
+  - Orquesta de Héctor Varela
+  - Orquesta de Rodolfo Biagi
+  - Paris Symphony Orchestra
+  - Raul Beron
+  - Roberto Alagna
+  - Roberto Maida
+  - Rodolfo Biagi
+  - Rodolfo Lesica
+  - Romántica Milonguera
+  - Rubén Peloni
+  - Sexteto Cristal
+  - Sexteto Milonguero
+  - Tango Argentino
+  - Tanito Tango
+  - Yvan Cassar
+  - Вадим Козин
+Vals:
+  kind: 1001
+  artists:
+  - Alfredo De Angelis
+  - Andres Falgas
+  - Belarusian Radio and Television Orchestra. Conductor Vasiliy Leonov
+  - Carlos Heredia
+  - Edgardo Donato
+  - Edgardo Donato y Su Orquesta
+  - Francisco Canaro
+  - Guillermo Rozenthuler
+  - Hernan Godoy
+  - Horacio Lagos
+  - Hugo Duval
+  - Hyperion Ensemble
+  - Juan D'Arienzo
+  - Miguel Calo
+  - Rodolfo Biagi
+  - Rodolfo Biagi Y Su Orquesta Tipica
+  - Rubén Peloni
+  - Russian State Symphony Orchestra of Cinematography
+  - Sexteto Cristal
+Milonga:
+  kind: 1000
+  artists:
+  - Alberto Amor
+  - Alberto Arenas
+  - Alberto Echague
+  - Alberto Marino
+  - Alberto Serna
+  - Anibal Troilo
+  - Antonio Rodio
+  - Argentino Ledesma
+  - Carlos Di Sarli
+  - Carlos Galan
+  - Carmen Idal
+  - Combo los Galleros
+  - Daniel Adamo
+  - Edgardo Donato
+  - Edgardo Donato & his orchestra
+  - Edgardo Donato y Su Orquesta
+  - Ernesto Fama
+  - Fernando Serrano
+  - Francisco Canaro
+  - Francisco Canaro y su Orquesta
+  - Guillermo Rozenthuler
+  - Hector Maure
+  - Hector Varela
+  - Hermanos Casadei
+  - Hernan Godoy
+  - Horacio Lagos
+  - Hyperion Ensemble
+  - Jorge Cardozo
+  - Juan Carlos Caceres
+  - Juan Carlos Casas
+  - Juan D'Arienzo
+  - Juan D'Arienzo y su Orquesta Tipica
+  - Lucy Gonzalez
+  - Mariano Balcarce
+  - Miguel Calo
+  - Milonga
+  - Orlando Medina
+  - Orquesta De Francisco Canaro
+  - Orquesta Típica Andariega
+  - Orquesta Típica Victor
+  - Orquesta de Héctor Varela
+  - Orquesta de Pedro Laurenz
+  - Pedro Laurenz
+  - Quinteto Francisco Canaro
+  - Quinteto Pirincho
+  - Rafael Rossi Trio
+  - Raul Beron
+  - Renato Borghetti
+  - Ricardo Malerba
+  - Roberto Arrieta
+  - Roberto Maida
+  - Roberto Rufino
+  - Roberto Zerrillo
+  - Rodolfo Biagi
+  - Romeo Gavioli
+  - Rubén Peloni
+  - Sexteto Cristal
+  - Sexteto Milonguero
+  - Solo Tango Orquesta
+  - Tita Merello
+  - Toto La Momposina
+  - Trio Creartis
+  - Trio Garufa

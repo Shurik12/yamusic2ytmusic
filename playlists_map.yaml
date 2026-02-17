@@ -2,12 +2,23 @@ Sum 41:
   id: PL9ndrSS7dnNzzcz18O-CzGBDMH1Cw1QnA
   artists:
   - Iron Maiden
+  - Bruce Dickinson
   - Judas Priest
   - Sum 41
+Bluz:
+  id: PL9ndrSS7dnNyyVbpSrHgFUhJrZtXkhmzF
+  artists:
+  - The Doors
 Jazz:
   id: PL9ndrSS7dnNz8ZbIl9de4YNJTp4N-oSnE
   artists:
+  - Benny Goodman
+  - Big Bad Voodoo Daddy
+  - John Rowcroft
+  - London Studio Big Band
   - Preservation Hall Jazz Band
+  - Ray Charles
+  - Royal Crown Revue
 Classical:
   id: PL9ndrSS7dnNww4bIU3KXyWg2iZ_I9KfCR
   artists:
@@ -15,6 +26,7 @@ Classical:
   - Efisio Cross
   - Imperial Orchestra
   - Murat İşbilen Ensemble
+  - Sergei Rachmaninoff
 Georgian:
   id: PL9ndrSS7dnNzgCo1g3N5pJTV3wrOYzSm9
   artists:
@@ -30,26 +42,37 @@ Georgian:
   - ანსამბლი "ქართული ხმები"
   - ანსამბლი კელაპტარი
   - იური გოგოლაური
+  - Dj Chechen
+  - Hari Mata Hari
+  - Hatti
+  - Samer Sami
+  - Trio Mandili
+  - Залим Кодзов
+  - Заурбек Гендуков
+  - Роман Шанков
 Deep Purple:
   id: PL9ndrSS7dnNy9aFrEx24ERHc6vWu0ZkzL
   artists:
   - Deep Purple
+  - Rainbow
   - Led Zeppelin
   - Pink Floyd
   - Queen
-Metallica:
-  id: PL9ndrSS7dnNzYYwyppMDnPBG6KdiibX9u
-  artists:
-  - Disturbed
-  - Metallica
-  - Powerwolf
-  - Sabaton
-  - Skillet
 SOAD:
   id: PL9ndrSS7dnNxr1TE_JdE5A-ROtXXeOvpZ
   artists:
   - Linkin Park
+  - LINKIN PARK
   - System Of A Down
+  - Serj Tankian
+  - Daron Malakian and Scars On Broadway
+  - Manapart
+Slipknot:
+  id: PL9ndrSS7dnNw5SKbiuBIbVnNQ_-mmdqMY
+  artists:
+  - Slipknot
+  - Bullet For My Valentine
+  - Lords Of Black
 Guitar:
   id: PL9ndrSS7dnNxBIfmdolfe4k0zlPzTkzqP
   artists:
@@ -76,6 +99,7 @@ Guitar:
   id: PL9ndrSS7dnNyMe7vGMf5TN51Sv8FMd-nB
   artists:
   - КняZz
+  - КняZZ
   - Король и Шут
 Twisted Sister:
   id: PL9ndrSS7dnNwmPH-1ih-qXpwbDsAbH67-
@@ -83,10 +107,15 @@ Twisted Sister:
   - Bon Jovi
   - Guns N' Roses
   - Mötley Crüe
+  - Motörhead
   - Red Hot Chili Peppers
   - Twisted Sister
+  - Black Sabbath
+  - Ozzy Osbourne
+  - Whitesnake
   - Ария
   - Кипелов
+  - Сергей Маврин
 Hammerfall:
   id: PL9ndrSS7dnNynZTQonKFr12E0AjP8b3eS
   artists:
@@ -96,6 +125,16 @@ Hammerfall:
   - Lord Of The Lost
   - Nightwish
   - Nils Patrik Johansson
+  - Volbeat
+Metallica:
+  id: PL9ndrSS7dnNzYYwyppMDnPBG6KdiibX9u
+  artists:
+  - Disturbed
+  - Metallica
+  - Powerwolf
+  - Sabaton
+  - Skillet
+  - Godsmack
 Rammstein:
   id: PL9ndrSS7dnNwAmUbKAq4rdqjbGK3TL0dg
   artists:
@@ -107,3 +146,217 @@ Dragons:
   artists:
   - Imagine Dragons
   - Muse
+Hip-hop:
+  id: PL9ndrSS7dnNxnyYuYLplPqxMIkJF9rGZ-
+  artists:
+  - 2Pac
+  - 50 Cent
+  - A3
+  - BG
+  - Bad Meets Evil
+  - Bill Conti
+  - Black Eyed Peas
+  - Cashis
+  - Chencho Corleone
+  - Choppa
+  - Coolio
+  - D12
+  - DJ Buddha
+  - DMX
+  - Daddy Yankee
+  - Don Omar
+  - Dr. Dre
+  - E.D.I
+  - El Alfa
+  - Eminem
+  - Farruko
+  - Fredwreck Nassar
+  - Giz
+  - Glory
+  - Hollywood Undead
+  - Héctor El Father
+  - IAMCHINO
+  - Jay Rock
+  - Jay-Z
+  - Jermaine Dupri
+  - Justin Quiles
+  - Kastro
+  - Kurupt
+  - L.V.
+  - Lil Jon
+  - Lil Jon & The East Side Boyz
+  - Lloyd Banks
+  - Miky Woodz
+  - Mr. Magic
+  - Nate Dogg
+  - Natti Natasha
+  - Noriega
+  - Obie Trice
+  - Olivia
+  - Omar Courtz
+  - Ozuna
+  - Pitbull
+  - Plan B
+  - Rassey
+  - Reggaetones
+  - Residente
+  - Roy Jones Jr.
+  - Savage
+  - Slim Jxmmi
+  - Snoop Dogg
+  - Swellz
+  - Tech N9ne
+  - The Game
+  - The Velvet Orchestra
+  - Timmy Trumpet
+  - Tommy Viera
+  - Tony Yayo
+  - Trick Trick
+  - Trouble
+  - Wisin
+  - Ying Yang Twins
+  - Young Noble
+  - Zion y Lennox
+Country:
+  id: PL9ndrSS7dnNxPZeajMfYaYJO95X6Mivg2
+  artists:
+  - Bon Iver
+  - Die Streuner
+  - Geoff Castellucci
+  - George Thorogood
+  - Home Free
+  - John Hardy
+  - Louis Armstrong
+  - Merv Griffin
+  - Poor Mans Poison
+  - Rodrigo y Gabriela
+  - SKÁLD
+  - Santiano
+  - Styx
+Punk:
+  id: PL9ndrSS7dnNxm132cSh2MxHNfeCNWoEXH
+  artists:
+  - Green Day
+  - Sum 41
+  - blink-182
+  - The Offspring
+Rock&Roll:
+  id: PL9ndrSS7dnNxt4DzUSq6sKlJP5nUDyQIL
+  artists:
+  - Big Time Bossmen
+  - Bob Seger & The Silver Bullet Band
+  - Elvis Presley
+  - Geoff Castellucci
+  - Little Richard
+  - Raul Malo
+  - Switchblade 3
+  - The Atomic Fireballs
+  - The Mavericks
+Bard:
+  id: PL9ndrSS7dnNxSd-cRTPn8CmOPGu4xQgrK
+  artists:
+  - Александр Городницкий
+  - Булат Окуджава
+  - Bulat Okudzhava
+  - Валерий Золотухин
+  - Валерий Чечет
+  - Виктор Берковский
+  - Владимир Высоцкий
+  - Дуэт “Русские Гитары”
+  - Жанна Бичевская
+  - Иван Жук
+  - Пётр Налич
+  - Чароит
+  - Элечка
+  - Юрий Визбор
+  - Юрий Кукин
+Chanson:
+  id: PL9ndrSS7dnNwJ-1_LZ24kw3iRZ5_z3ZOP
+  artists:
+  - Ange Lanzalavi Trio
+  - Bruno Tafani
+  - Chris Norman
+  - Enrico Macias
+  - Gheorghe Zamfir
+  - Jérôme Ciosi
+  - Trio Garufa
+  - Vladimir Cosma
+  - Yann Tiersen
+  - Yves Montand
+  - Альфа
+  - Антон Лирник
+  - Ноль
+Dance:
+  id: PL9ndrSS7dnNygxqOS-HePplDgKJdexKLF
+  artists:
+  - Alban Fuam
+  - Ange Lanzalavi Trio
+  - Avi Avital
+  - Boris Savchuk
+  - Bruno Tafani
+  - Carlos Puebla
+  - Chris Norman
+  - Daddy Yankee
+  - Darrial
+  - Fanfare Ciocarlia
+  - Gheorghe Zamfir
+  - Joe Dassin
+  - Juanes
+  - Plan B
+  - Jérôme Ciosi
+  - London Orchestra
+  - Los Ninos de Sara
+  - Nathalie Cardone
+  - Paris Symphony Orchestra
+  - Pete Rodriguez
+  - Roberto Alagna
+  - Rodrigo y Gabriela
+  - Rosana
+  - Savage
+  - Tanito Tango
+  - The Mavericks
+  - Timmy Trumpet
+  - Trio Los Panchos
+  - Vladimir Cosma
+  - Yvan Cassar
+  - ВИА «Иверия»
+Pop:
+  id: PL9ndrSS7dnNy2sJ9Cedna0AbA6LTGLlev
+  artists:
+  - ABBA
+  - Adriano Celentano
+  - Afric Simone
+  - Andrea Colombari
+  - Antonio Maggio
+  - Al Bano
+  - Boney M.
+  - Connie Francisco
+  - Daniel Magal
+  - Dean Martin
+  - Diego Moreno
+  - Dschinghis Khan
+  - Fancy
+  - Joe Dolan
+  - Jeanette
+  - Los Ninos De Sara
+  - Michael Jackson
+  - Nathalie Cardone
+  - Pimpinela
+  - Renato Carosone
+  - Raphael
+  - Sonny & Cher
+  - The Mavericks
+  - Toto Cutugno
+  - Umberto Tozzi
+  - Yves Montand
+  - Алла Пугачева
+  - Альберт Асадуллин
+  - Альфа
+  - Андрей Миронов
+  - Александр Васильев
+  - Браво
+  - Земляне
+  - Муслим Магомаев
+  - Мираж
+  - Сергей Бубенец
+  - Тынис Мяги

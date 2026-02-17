@@ -1,7 +1,6 @@
-import os
 import requests
 from tqdm import tqdm
-from ytmusicapi import YTMusic, OAuthCredentials
+from ytmusicapi import YTMusic
 from typing import List, Dict, Any, Optional, Set, Union, Tuple
 import yaml
 
@@ -11,85 +10,18 @@ from src.track import Track
 class YTMusicClient:
     def __init__(
         self,
-        client_id: str,
-        client_secret: str,
-        use_tor: bool = False,
-        tor_host: str = "127.0.0.1",
-        tor_port: int = 9150,
-        auth_file: str = "browser.json",
     ):
-        """
-        Initialize YouTube Music client with optional Tor proxy.
-
-        Args:
-            client_id: YouTube Music OAuth client ID
-            client_secret: YouTube Music OAuth client secret
-            use_tor: Enable Tor proxy
-            tor_host: Tor proxy host
-            tor_port: Tor proxy port
-            auth_file: Path to save/load authentication file
-        """
-        self.auth_file = auth_file
-
-        # Create session with optional Tor proxy
-        session = self._create_session(use_tor, tor_host, tor_port)
-
-        # Initialize YTMusic with OAuth credentials
-        if os.path.exists(auth_file):
-            # Load existing authentication
-            with open(auth_file, "r") as f:
-                token = f.read()
-            self.ytmusic = YTMusic(token, requests_session=session)
-        else:
-            # Create new authentication with OAuth
-            oauth_credentials = OAuthCredentials(
-                client_id=client_id, client_secret=client_secret
-            )
-            self.ytmusic = YTMusic(
-                oauth_credentials=oauth_credentials, requests_session=session
-            )
-            # Save authentication for future use
-            token = self.ytmusic.get_oauth_token()  # type: ignore
-            with open(auth_file, "w") as f:
-                f.write(token)
-
-        # Test connection
-        self._test_connection(session)
-
-    def _create_session(
-        self, use_tor: bool, tor_host: str, tor_port: int
-    ) -> requests.Session:
-        """Create a requests session with optional Tor proxy"""
         session = requests.Session()
+        session.proxies = {
+            "http": "socks5://127.0.0.1:1080",
+            "https": "socks5://127.0.0.1:1080"
+        }
+        session.trust_env = False
 
-        if use_tor:
-            proxy_url = f"socks5h://{tor_host}:{tor_port}"
-            session.proxies = {"http": proxy_url, "https": proxy_url}
-            print(f"Configured Tor proxy: {proxy_url}")
-
-        return session
-
-    def _test_connection(self, session: requests.Session) -> None:
-        """Test the connection to verify Tor is working (if enabled)"""
-        try:
-            if session.proxies:
-                # Test Tor connection
-                response = session.get(
-                    "https://check.torproject.org/api/ip", timeout=10
-                )
-                if response.status_code == 200:
-                    data = response.json()
-                    print(f"✓ Connected via Tor. IP: {data.get('IP')}")
-                else:
-                    print("⚠ Could not verify Tor connection")
-            else:
-                print("✓ Connected directly (no proxy)")
-        except Exception as e:
-            if session.proxies:
-                print(f"⚠ Tor connection test failed: {e}")
-                print("   Make sure Tor Browser is running if you want to use Tor.")
-            else:
-                print(f"⚠ Connection test failed: {e}")
+        self.ytmusic = YTMusic(
+            auth="browser.json",
+            requests_session=session,
+        )
 
     def import_liked_tracks(
         self, tracks: List[Track]
@@ -218,6 +150,7 @@ class YTMusicClient:
     ) -> Dict[str, Any]:
         """Add tracks to a playlist"""
         try:
+            print (f"Add {video_ids} tracks to playlist {playlist_id}")
             return self.ytmusic.add_playlist_items(playlist_id, video_ids)  # type: ignore
         except Exception as e:
             print(f"Error adding items to playlist {playlist_id}: {e}")
@@ -338,6 +271,7 @@ class YTMusicClient:
         ):
             if track["videoId"] not in skip_track_videoId:
                 track_out_playlist.append(track)
+        print(f"{len(track_out_playlist)} tracks out playlist")
 
         return track_out_playlist
 
@@ -368,7 +302,9 @@ class YTMusicClient:
             for track in track_out_playlist:
                 if track["artists"][0]["name"] in playlist_info["artists"]:
                     add_tracks.append(track["videoId"])
-            self.add_playlist_items(playlist_info["id"], add_tracks)
+            print (f"Add {len(add_tracks)} tracks to playlist {playlist_info["id"]}")
+            if (len(add_tracks)):
+                self.add_playlist_items(playlist_info["id"], add_tracks)
     
     def update_playlists_map(self, output_file: str = "playlists_map_updated.yaml"):
         """

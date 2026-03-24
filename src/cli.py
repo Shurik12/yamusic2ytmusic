@@ -9,21 +9,45 @@ class CLI:
         self.ytmusic = ytmusic
         self.args = args
         self.running = True
+        self.mode = None  # 'ytmusic' or 'yamusic'
         
-    def print_menu(self):
-        """Display the main menu"""
+    def print_mode_selection(self):
+        """Display mode selection menu"""
         print("\n" + "="*50)
-        print("YouTube Music CLI Menu")
+        print("Select API Mode")
+        print("="*50)
+        print("1. YouTube Music")
+        print("2. Yandex Music")
+        print("q, quit, exit - Exit program")
+        print("="*50)
+    
+    def print_ytmusic_menu(self):
+        """Display YouTube Music specific menu"""
+        print("\n" + "="*50)
+        print("YouTube Music Commands")
         print("="*50)
         print("1. List playlists")
         print("2. Get playlist artists")
-        print("3. Transfer tracks from Yandex Music to YouTube Music")
-        print("4. Get tracks from liked playlist")
-        print("5. Print tracks to file")
-        print("6. Update playlist map")
-        print("7. Distribute tracks by playlists")
-        print("8. Download playlists")
-        print("9. Download like tracks as playlist")
+        print("3. Get tracks from liked playlist")
+        print("4. Print tracks to file")
+        print("5. Update playlist map")
+        print("6. Distribute tracks by playlists")
+        print("b, back - Return to mode selection")
+        print("q, quit, exit - Exit program")
+        print("="*50)
+    
+    def print_yamusic_menu(self):
+        """Display Yandex Music specific menu"""
+        print("\n" + "="*50)
+        print("Yandex Music Commands")
+        print("="*50)
+        print("1. Transfer tracks to YouTube Music")
+        print("2. Download playlists")
+        print("3. Download liked tracks as playlist")
+        print("4. Get playlist map")
+        print("5. Playlist changes")
+        print("6. Sync playlists from yaml")
+        print("b, back - Return to mode selection")
         print("q, quit, exit - Exit program")
         print("="*50)
     
@@ -41,9 +65,9 @@ class CLI:
             playlists = self.ytmusic.get_playlists()
             playlist = self.ytmusic.get_playlist(playlists[1]["playlistId"])
             artists = self.ytmusic.get_playlist_artists(playlist)
-            print (playlist["title"])
+            print(playlist["title"])
             for artist in artists:
-                print (artist)
+                print(artist)
         except Exception as e:
             print(f"Error getting playlist artists: {e}")
 
@@ -98,46 +122,100 @@ class CLI:
         else:
             print("Transfer cancelled.")
     
+    def handle_ytmusic_command(self, command):
+        """Handle YouTube Music specific commands"""
+        if command in ['1', 'list']:
+            self.list_playlists()
+        elif command in ['2', 'artists']:
+            self.get_playlist_artists()
+        elif command in ['3', 'tracks']:
+            tracks = self.ytmusic.get_track_out_playlist()
+            print(f"Found {len(tracks)} tracks in liked playlist")
+        elif command in ['4', 'print']:
+            tracks = self.ytmusic.get_track_out_playlist()
+            self.ytmusic.print_tracks(tracks)
+            print(f"Printed {len(tracks)} tracks to tracks.txt")
+        elif command in ['5', 'playlist_map']:
+            self.ytmusic.update_playlists_map("1.yaml")
+        elif command in ['6', 'distribute']:
+            self.ytmusic.distribute_tracks()
+        elif command in ['b', 'back']:
+            self.mode = None
+            print("Returning to mode selection...")
+        else:
+            print("Unknown command. Type 'help' to see available commands.")
+    
+    def handle_yamusic_command(self, command):
+        """Handle Yandex Music specific commands"""
+        if command in ['1', 'transfer']:
+            self.transfer_tracks()
+        elif command in ['2', 'download_playlists']:
+            self.yamusic.download_playlists()
+        elif command in ['3', 'download_liked']:
+            self.yamusic.download_like_tracks()
+        elif command in ['4', 'playlist_map']:
+            self.yamusic.playlist_map()
+        elif command in ['5', 'p']:
+            self.yamusic.check_tracks()
+        elif command in ['6', 'sync']:
+            self.yamusic.sync_playlists_from_yaml()
+        elif command in ['b', 'back']:
+            self.mode = None
+            print("Returning to mode selection...")
+        else:
+            print("Unknown command. Type 'help' to see available commands.")
+    
     def run(self):
         """Main CLI loop"""
         print("\n" + "="*50)
-        print("YouTube Music CLI Started")
-        self.print_menu()
-        print("Type 'help' to see this menu again")
+        print("YouTube Music / Yandex Music CLI")
         print("="*50)
         
         while self.running:
             try:
-                command = input("\nEnter command (or 'help' for menu): ").strip().lower()
+                # Mode selection
+                if self.mode is None:
+                    self.print_mode_selection()
+                    mode_input = input("\nSelect mode (1/2): ").strip().lower()
+                    
+                    if mode_input in ['q', 'quit', 'exit']:
+                        print("Goodbye!")
+                        self.running = False
+                        break
+                    elif mode_input in ['1', 'yt', 'ytmusic']:
+                        self.mode = 'ytmusic'
+                        print("\nSwitched to YouTube Music mode")
+                        self.print_ytmusic_menu()
+                    elif mode_input in ['2', 'ya', 'yamusic']:
+                        self.mode = 'yamusic'
+                        print("\nSwitched to Yandex Music mode")
+                        self.print_yamusic_menu()
+                    else:
+                        print("Invalid mode selection. Please choose 1 or 2.")
                 
-                if command in ['q', 'quit', 'exit']:
-                    print("Goodbye!")
-                    self.running = False
-                elif command in ['help', '?', '']:
-                    self.print_menu()
-                elif command in ['1', 'list']:
-                    self.list_playlists()
-                elif command in ['2', 'artists']:
-                    self.get_playlist_artists()
-                elif command in ['3', 'transfer']:
-                    self.transfer_tracks()
-                elif command in ['4', 'tracks']:
-                    tracks = self.ytmusic.get_track_out_playlist()
-                    print(f"Found {len(tracks)} tracks in liked playlist")
-                elif command in ['5', 'print']:
-                    tracks = self.ytmusic.get_track_out_playlist()
-                    self.ytmusic.print_tracks(tracks)
-                    print(f"Printed {len(tracks)} tracks to tracks.txt")
-                elif command in ['6', 'playlist_map']:
-                    self.ytmusic.update_playlists_map("1.yaml")
-                elif command in ['7', 'distribute']:
-                    self.ytmusic.distribute_tracks()
-                elif command in ['8']:
-                    self.yamusic.download_playlists()
-                elif command in ['9']:
-                    self.yamusic.download_like_tracks()
-                else:
-                    print("Unknown command. Type 'help' to see available commands.")
+                # YouTube Music mode
+                elif self.mode == 'ytmusic':
+                    command = input("\n[YTMusic] Enter command (or 'help' for menu): ").strip().lower()
+                    
+                    if command in ['q', 'quit', 'exit']:
+                        print("Goodbye!")
+                        self.running = False
+                    elif command in ['help', '?', '']:
+                        self.print_ytmusic_menu()
+                    else:
+                        self.handle_ytmusic_command(command)
+                
+                # Yandex Music mode
+                elif self.mode == 'yamusic':
+                    command = input("\n[YaMusic] Enter command (or 'help' for menu): ").strip().lower()
+                    
+                    if command in ['q', 'quit', 'exit']:
+                        print("Goodbye!")
+                        self.running = False
+                    elif command in ['help', '?', '']:
+                        self.print_yamusic_menu()
+                    else:
+                        self.handle_yamusic_command(command)
             
             except KeyboardInterrupt:
                 print("\n\nGoodbye!")

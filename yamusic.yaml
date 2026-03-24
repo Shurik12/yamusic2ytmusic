@@ -12,31 +12,9 @@ Jazz:
   - Preservation Hall Jazz Band
   - Ray Charles
   - Royal Crown Revue
-Drums:
-  kind: 1076
-  artists:
-  - Aerosmith
-  - Black Sabbath
-  - Bruce Dickinson
-  - Disturbed
-  - Eloy
-  - Iron Maiden
-  - Led Zeppelin
-  - Linkin Park
-  - Ozzy Osbourne
-  - Queen
-  - Rainbow
-  - Twisted Sister
-  - Volbeat
-Piano:
-  kind: 1074
-  artists:
-  - Piano by VN
 Georgian:
   kind: 1073
   artists:
-  - Berkay
-  - Berkay ŞENGÜL
   - Bzabza
   - Dj Chechen
   - Ensemble circassien de Jordanie
@@ -50,17 +28,10 @@ Georgian:
   - Trio Mandili
   - Альберт Валиев
   - Залим Кодзов
-  - Заурбек Гендуков
-  - Роман Шанков
   - Торнике Квитатиани
   - ანსამბლი "ქართული ხმები"
   - იური გოგოლაური
-Новый:
-  kind: 1056
-  artists:
-  - Sonny & Cher
-  - Алла Пугачёва
-Hip hop:
+Hip-hop:
   kind: 1025
   artists:
   - 2Pac
@@ -68,7 +39,6 @@ Hip hop:
   - A3
   - BG
   - Bad Meets Evil
-  - Bill Conti
   - Black Eyed Peas
   - Cashis
   - Chencho Corleone
@@ -87,7 +57,6 @@ Hip hop:
   - Fredwreck Nassar
   - Giz
   - Glory
-  - Hollywood Undead
   - Héctor El Father
   - IAMCHINO
   - Jay Rock
@@ -100,6 +69,7 @@ Hip hop:
   - Lil Jon
   - Lil Jon & The East Side Boyz
   - Lloyd Banks
+  - Lumaris
   - Miky Woodz
   - Mr. Magic
   - Nate Dogg
@@ -111,7 +81,6 @@ Hip hop:
   - Ozuna
   - Pitbull
   - Plan B
-  - Rassey
   - Reggaetones
   - Residente
   - Roy Jones Jr.
@@ -131,25 +100,20 @@ Hip hop:
   - Ying Yang Twins
   - Young Noble
   - Zion y Lennox
-  - Кипелов
-  - Сергей Шнуров
 Country:
   kind: 1019
   artists:
-  - Bon Iver
-  - Die Streuner
   - Geoff Castellucci
   - George Thorogood
   - Home Free
   - John Hardy
   - Louis Armstrong
   - Merv Griffin
-  - Poor Mans Poison
   - Rodrigo y Gabriela
   - SKÁLD
   - Santiano
   - Styx
-Шансон:
+Chanson:
   kind: 1018
   artists:
   - Ange Lanzalavi Trio
@@ -176,12 +140,12 @@ Dance:
   - Carlos Puebla
   - Chris Norman
   - Daddy Yankee
-  - Darrial
   - Fanfare Ciocarlia
   - Gheorghe Zamfir
   - Joe Dassin
   - Juanes
   - Jérôme Ciosi
+  - Kavero
   - London Orchestra
   - Los Ninos de Sara
   - Nathalie Cardone
@@ -200,12 +164,73 @@ Dance:
   - ВИА «Иверия»
 Classical:
   kind: 1014
-  artists: []
+  artists:
+  - Alban Fuam
+  - Andrés Segovia
+  - Ange Lanzalavi Trio
+  - Apollo Symphony Orchestra
+  - Avi Avital
+  - Bill Conti
+  - Bruno Tafani
+  - Carmine Lauri
+  - Charles Dutoit
+  - David Alberman
+  - Ennio Morricone
+  - Estas Tonne
+  - Fazil Say
+  - Forndom
+  - Franck Pourcel
+  - Franck Pourcel Et Son Grand Orchestre
+  - Geoff Castellucci
+  - George Davidson
+  - Hans Zimmer
+  - Johann Sebastian Bach
+  - Jérôme Ciosi
+  - Karl Jenkins
+  - Karl Jenkins/Carmine Lauri/David Alberman/London Symphony Orchestra
+  - Las Sombras
+  - Les Musiciens du Louvre
+  - London Orchestra
+  - London Philharmonic Orchestra
+  - London Symphony Orchestra
+  - Luciano Pavarotti
+  - Ludwig van Beethoven
+  - MALINDA
+  - Marc Minkowski
+  - Paris Symphony Orchestra
+  - RFCM Symphony Orchestra
+  - Richard Armitage
+  - Roberto Alagna
+  - Rodrigo y Gabriela
+  - Salvatore Accardo
+  - Secret Garden
+  - Tanito Tango
+  - The Dwarf Cast
+  - Thomas Bergersen
+  - Vittorio Monti
+  - Yvan Cassar
+  - Александр Егорович Варламов
+  - Василий Небольсин
+  - Джакомо Пуччини
+  - Джоаккино Россини
+  - Жан-Филипп Рамо
+  - Иван Козловский
+  - Инструментальный секстет
+  - Иоганнес Брамс
+  - Кипелов
+  - Марек Белорусов
+  - Матвей Сахаров
+  - Никколо Паганини
+  - Оркестр Большого театра СССР
+  - Оркестр п/у Марека Вебера
+  - Сергей Лемешев
 Punk:
   kind: 1013
   artists:
   - Green Day
   - Sum 41
+  - blink-182
+  - The Offspring
 Rock&Roll:
   kind: 1011
   artists:
@@ -215,13 +240,89 @@ Rock&Roll:
   - Geoff Castellucci
   - Little Richard
   - Raul Malo
-  - Switchblade 3
   - The Atomic Fireballs
   - The Mavericks
 Russian:
   kind: 1010
-  artists: []
-Авторская песня:
+  artists:
+  - Bellacord Orchestra
+  - Glykeria
+  - Hari Mata Hari
+  - Roberto Alagna
+  - Trio Mandili
+  - Академический Ансамбль песни и пляски Российской Армии имени А.В. Александрова
+  - Александр Бухгольц
+  - Александр Гореткин
+  - Алексей Семенов
+  - Альберт Асадуллин
+  - Андрей Миронов
+  - Антонина Клещёва
+  - Аркадий Коц
+  - Борис Кузнецов
+  - Борис Мокроусов
+  - Вадим Козин
+  - Василий Васильев
+  - Василий Небольсин
+  - Вахтанг Кикабидзе
+  - Виктор Дубровский
+  - Виталий Доронин
+  - Владимир Гринберг
+  - Владимир Нечаев
+  - Владимир Чижик
+  - Геннадий Белов
+  - Геннадий Гладков
+  - Георгий Абрамов
+  - Георгий Гаранян
+  - Государственный джаз-оркестр РСФСР п/у Леонида Утёсова
+  - Государственный русский народный оркестр имени Николая Осипова
+  - Джакомо Пуччини
+  - Евгений Михайлович Дрейзин
+  - Екатерина Савинова
+  - Иван Жук
+  - Иван Савчук
+  - Игорь Растеряев
+  - Инна Чурикова
+  - Инструментальный ансамбль «Мелодия»
+  - Клара Лучко
+  - Кола Бельды
+  - Кубанский казачий хор
+  - Лев Полосин
+  - Леонид Утёсов
+  - Лидия Русланова
+  - Людмила Зыкина
+  - Марек Белорусов
+  - Марина Ладынина
+  - Марк Григорьевич Фрадкин
+  - Михаил Белоусов
+  - Михаил Водяной
+  - Муслим Магомаев
+  - Никита Владимирович Богословский
+  - Никита Михалков
+  - Николай Абрамов
+  - Николай Караченцов
+  - Николай Некрасов
+  - Николай Рыбников
+  - Николай Тимченко
+  - Олег Погудин
+  - Оркестр Большого театра СССР
+  - Оркестр п/у Марека Вебера
+  - Орэра
+  - Песняры
+  - Полад Бюль-бюль оглы
+  - Пётр Лещенко
+  - Пётр Налич
+  - Рашид Бейбутов
+  - Самуил Яковлевич Покрасс
+  - Секстет Домр
+  - Секстет домр и баян
+  - Сектор Газа
+  - Сергей Лемешев
+  - Фёдор Иванович Шаляпин
+  - Хор Сретенского монастыря
+  - Эстрадный оркестр п/у Константина Кримца
+  - Юрий Щербаков
+  - Яков Пригожий
+Bard:
   kind: 1009
   artists:
   - Александр Городницкий
@@ -235,133 +336,172 @@ Russian:
   - Иван Жук
   - Пётр Налич
   - Чароит
-  - Элечка
   - Юрий Визбор
   - Юрий Кукин
 Pop:
   kind: 1007
-  artists: []
-Tango:
-  kind: 1006
   artists:
-  - Andres Falgas
-  - Carlos Casares
-  - Carlos Di Sarli
-  - Edgardo Donato
-  - Enrique Lucero
-  - Ernesto Fama
-  - Fabio Hager Sexteto
-  - Florindo Sassone Y Su Orquesta
-  - Francisco Canaro
-  - Hector Maure
-  - Hector Varela
-  - Hyperion Ensemble
-  - Jorge Ortiz
-  - Juan D'Arienzo
-  - Juan D'Arienzo y su Orquesta Tipica
-  - Los Auténticos Reyes
-  - Miguel Calo
-  - Orquesta de Héctor Varela
-  - Orquesta de Rodolfo Biagi
+  - ABBA
+  - Adriano Celentano
+  - Afric Simone
+  - Al Bano
+  - Andrea Colombari
+  - Antonio Maggio
+  - Avi Avital
+  - Boney M.
+  - Boris Savchuk
+  - Carlos Vives
+  - Connie Francis
+  - Daniel Magal
+  - Diego Moreno
+  - Fancy
+  - Franck Pourcel
+  - Gheorghe Zamfir
+  - Jeanette
+  - Joe Dassin
+  - Joe Dolan
+  - Juanes
+  - Kaiti Garbi
+  - Kali Uchis
+  - Lalo Ebratt
+  - Little Big
+  - London Orchestra
+  - Los Ninos de Sara
+  - Michael Jackson
+  - Nathalie Cardone
   - Paris Symphony Orchestra
-  - Raul Beron
+  - Pimpinela
+  - Plan B
+  - Raphael
+  - Renato Carosone
   - Roberto Alagna
-  - Roberto Maida
-  - Rodolfo Biagi
-  - Rodolfo Lesica
-  - Romántica Milonguera
-  - Rubén Peloni
-  - Sexteto Cristal
-  - Sexteto Milonguero
-  - Tango Argentino
-  - Tanito Tango
+  - The Mavericks
+  - The Spanish Guitar Music Colección
+  - Toto Cotugno
+  - Toto Cutugno
+  - Umberto Tozzi
+  - Vladimir Cosma
   - Yvan Cassar
-  - Вадим Козин
-Vals:
-  kind: 1001
+  - Yves Montand
+  - Александр Васильев
+  - Алла Пугачёва
+  - Альберт Асадуллин
+  - Альфа
+  - Андрей Миронов
+  - Браво
+  - ВИА «Иверия»
+  - ВИА Пламя
+  - Вахтанг Кикабидзе
+  - Джанго
+  - Жанна Рождественская
+  - Земляне
+  - Инструментальный ансамбль «Мелодия»
+  - Ирина Муравьева
+  - Мираж
+  - Муслим Магомаев
+  - Орэра
+  - Сергей Бобунец
+  - Тынис Мяги
+  - Фестиваль
+Sum 41:
+  kind: 1083
   artists:
-  - Alfredo De Angelis
-  - Andres Falgas
-  - Belarusian Radio and Television Orchestra. Conductor Vasiliy Leonov
-  - Carlos Heredia
-  - Edgardo Donato
-  - Edgardo Donato y Su Orquesta
-  - Francisco Canaro
-  - Guillermo Rozenthuler
-  - Hernan Godoy
-  - Horacio Lagos
-  - Hugo Duval
-  - Hyperion Ensemble
-  - Juan D'Arienzo
-  - Miguel Calo
-  - Rodolfo Biagi
-  - Rodolfo Biagi Y Su Orquesta Tipica
-  - Rubén Peloni
-  - Russian State Symphony Orchestra of Cinematography
-  - Sexteto Cristal
-Milonga:
-  kind: 1000
+  - Sum 41
+  - Iron Maiden
+  - Judas Priest
+  - Bruce Dickinson
+Deep Purple:
+  kind: 1084
   artists:
-  - Alberto Amor
-  - Alberto Arenas
-  - Alberto Echague
-  - Alberto Marino
-  - Alberto Serna
-  - Anibal Troilo
-  - Antonio Rodio
-  - Argentino Ledesma
-  - Carlos Di Sarli
-  - Carlos Galan
-  - Carmen Idal
-  - Combo los Galleros
-  - Daniel Adamo
-  - Edgardo Donato
-  - Edgardo Donato & his orchestra
-  - Edgardo Donato y Su Orquesta
-  - Ernesto Fama
-  - Fernando Serrano
-  - Francisco Canaro
-  - Francisco Canaro y su Orquesta
-  - Guillermo Rozenthuler
-  - Hector Maure
-  - Hector Varela
-  - Hermanos Casadei
-  - Hernan Godoy
-  - Horacio Lagos
-  - Hyperion Ensemble
-  - Jorge Cardozo
-  - Juan Carlos Caceres
-  - Juan Carlos Casas
-  - Juan D'Arienzo
-  - Juan D'Arienzo y su Orquesta Tipica
-  - Lucy Gonzalez
-  - Mariano Balcarce
-  - Miguel Calo
-  - Milonga
-  - Orlando Medina
-  - Orquesta De Francisco Canaro
-  - Orquesta Típica Andariega
-  - Orquesta Típica Victor
-  - Orquesta de Héctor Varela
-  - Orquesta de Pedro Laurenz
-  - Pedro Laurenz
-  - Quinteto Francisco Canaro
-  - Quinteto Pirincho
-  - Rafael Rossi Trio
-  - Raul Beron
-  - Renato Borghetti
-  - Ricardo Malerba
-  - Roberto Arrieta
-  - Roberto Maida
-  - Roberto Rufino
-  - Roberto Zerrillo
-  - Rodolfo Biagi
-  - Romeo Gavioli
-  - Rubén Peloni
-  - Sexteto Cristal
-  - Sexteto Milonguero
-  - Solo Tango Orquesta
-  - Tita Merello
-  - Toto La Momposina
-  - Trio Creartis
-  - Trio Garufa
+  - Deep Purple
+  - Rainbow
+  - Led Zeppelin
+  - Pink Floyd
+  - Queen
+SOAD:
+  kind: 1085
+  artists:
+  - Linkin Park
+  - System Of A Down
+  - Serj Tankian
+  - Daron Malakian and Scars On Broadway
+  - Manapart
+Slipknot:
+  kind: 1086
+  artists:
+  - Slipknot
+  - Bullet For My Valentine
+  - Lords Of Black
+Guitar:
+  kind: 1087
+  artists:
+  - Агата Кристи
+  - Андрей Миронов
+  - Би-2
+  - Браво
+  - ДДТ
+  - Звери
+  - Земляне
+  - Земфира
+  - Крематорий
+  - Ляпис Трубецкой
+  - Магелланово Облако
+  - Мумий Тролль
+  - Мёртвые Дельфины
+  - Наутилус Помпилиус
+  - Павел Пиковский
+  - Пикник
+  - Порнофильмы
+  - Сплин
+  - Танцы Минус
+КиШ:
+  kind: 1088
+  artists:
+  - КняZz
+  - КняZZ
+  - Король и Шут
+Twisted Sister:
+  kind: 1089
+  artists:
+  - Bon Jovi
+  - Guns N' Roses
+  - Mötley Crüe
+  - Motörhead
+  - Red Hot Chili Peppers
+  - Twisted Sister
+  - Black Sabbath
+  - Ozzy Osbourne
+  - Whitesnake
+  - Ария
+  - Кипелов
+  - Сергей Маврин
+Hammerfall:
+  kind: 1090
+  artists:
+  - Allen Lande
+  - Civil War
+  - Hammerfall
+  - Lord Of The Lost
+  - Nightwish
+  - Nils Patrik Johansson
+  - Volbeat
+Metallica:
+  kind: 1091
+  artists:
+  - Disturbed
+  - Metallica
+  - Powerwolf
+  - Sabaton
+  - Skillet
+  - Godsmack
+Rammstein:
+  kind: 1092
+  artists:
+  - Lindemann
+  - Rammstein
+  - Scorpions
+Dragons:
+  kind: 1093
+  artists:
+  - Imagine Dragons
+  - Muse

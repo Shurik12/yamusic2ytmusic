@@ -3,6 +3,13 @@ from tqdm import tqdm
 from ytmusicapi import YTMusic
 from typing import List, Dict, Any, Optional, Set, Union, Tuple
 import yaml
+from pathlib import Path
+import os
+import logging
+import yt_dlp
+
+logger = logging.getLogger(__name__)
+
 
 from src.track import Track
 
@@ -345,3 +352,93 @@ class YTMusicClient:
         
         print(f"\n✓ Updated playlists map saved to {output_file}")
         print(f"Total playlists in map: {len(playlists_map)}")
+
+    # Download
+    def download_track(
+        self, 
+        video_id: str, 
+        output_path: str = "downloads",
+        format_type: str = "mp3",
+        quality: str = "best",
+        progress_hooks: Optional[List[callable]] = None
+    ) -> Optional[str]:
+        """
+        Download a single track from YouTube using yt-dlp.
+        
+        Args:
+            video_id: YouTube video ID
+            output_path: Directory to save the downloaded file
+            format_type: Audio format (mp3, m4a, etc.)
+            quality: Audio quality (best, worst, etc.)
+            progress_hooks: List of callback functions for download progress
+            
+        Returns:
+            Path to downloaded file or None if download failed
+        """
+        url = f"https://www.youtube.com/watch?v={video_id}"
+        
+        # Create output directory if it doesn't exist
+        Path(output_path).mkdir(parents=True, exist_ok=True)
+        
+        # Configure yt-dlp options based on working config
+        ydl_opts = {
+            # Proxy configuration
+            'proxy': 'socks5://127.0.0.1:1080',
+            
+            # Headers
+            'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0',
+            'referer': 'https://music.youtube.com',
+            
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': format_type,
+                'preferredquality': '0' if quality == 'best' else '192',
+            }],
+            
+            'outtmpl': os.path.join(output_path, '%(title)s.%(ext)s'),
+            'concurrent_fragments': 6,
+            'progress': True,
+            'extract_flat': False
+        }
+        
+        # Try to get metadata for better filename if available
+        try:
+            with yt_dlp.YoutubeDL({'quiet': True, 'extract_flat': True, 'proxy': 'socks5://127.0.0.1:1080'}) as ydl:
+                info = ydl.extract_info(url, download=False)
+                if info and 'artist' in info and 'title' in info:
+                    # Use artist - title format if metadata is available
+                    artist = info.get('artist', 'Unknown')
+                    title = info.get('title', video_id)
+                    # Sanitize filename
+                    safe_artist = "".join(c for c in artist if c.isalnum() or c in ' -_')
+                    safe_title = "".join(c for c in title if c.isalnum() or c in ' -_')
+                    ydl_opts['outtmpl'] = os.path.join(output_path, f'{safe_artist} - {safe_title}.%(ext)s')
+        except:
+            pass  # Fall back to default template
+        
+        # Override audio quality if specified differently
+        quality_map = {
+            'best': '0',
+            'high': '192',
+            'medium': '128',
+            'low': '64'
+        }
+        ydl_opts['postprocessors'][0]['preferredquality'] = quality_map.get(quality, '0')
+        
+        # Add progress hooks if provided
+        if progress_hooks:
+            ydl_opts['progress_hooks'] = progress_hooks
+        
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url, download=True)
+                # Get the actual filename after post-processing
+                filename = ydl.prepare_filename(info)
+                # Change extension to the format we converted to
+                filename = os.path.splitext(filename)[0] + f'.{format_type}'
+                logger.info(f"Downloaded: {filename}")
+                return filename
+        except Exception as e:
+            logger.error(f"Error downloading video {video_id}: {e}")
+            return None

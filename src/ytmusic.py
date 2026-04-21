@@ -7,9 +7,32 @@ from pathlib import Path
 import os
 import logging
 import yt_dlp
+from datetime import datetime
+
+# Create logs directory if it doesn't exist
+logs_dir = Path("logs")
+logs_dir.mkdir(exist_ok=True)
+
+# Configure logging to write to log folder
+log_filename = logs_dir / f"download_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+file_handler = logging.FileHandler(log_filename)
+file_handler.setLevel(logging.INFO)
+file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.WARNING)  # Only show warnings and errors in console
+console_handler.setFormatter(logging.Formatter('%(message)s'))
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
 
+# Create a separate logger for file-only logs
+file_logger = logging.getLogger(f"{__name__}.file")
+file_logger.setLevel(logging.INFO)
+file_logger.addHandler(file_handler)
+file_logger.propagate = False  # Don't send to console
 
 from src.track import Track
 
@@ -157,10 +180,10 @@ class YTMusicClient:
     ) -> Dict[str, Any]:
         """Add tracks to a playlist"""
         try:
-            print (f"Add {video_ids} tracks to playlist {playlist_id}")
+            file_logger.info(f"Add {len(video_ids)} tracks to playlist {playlist_id}")
             return self.ytmusic.add_playlist_items(playlist_id, video_ids)  # type: ignore
         except Exception as e:
-            print(f"Error adding items to playlist {playlist_id}: {e}")
+            file_logger.error(f"Error adding items to playlist {playlist_id}: {e}")
             return {}
 
     def delete_playlist(self, playlist_id: str) -> Dict[str, Any]:
@@ -240,7 +263,7 @@ class YTMusicClient:
 
             except Exception as e:
                 errors += 1
-                print(f"Error processing {track.artist} - {track.name}: {e}")
+                file_logger.error(f"Error processing {track.artist} - {track.name}: {e}")
 
         return added, not_found, errors
 
@@ -278,6 +301,8 @@ class YTMusicClient:
         ):
             if track["videoId"] not in skip_track_videoId:
                 track_out_playlist.append(track)
+        
+        file_logger.info(f"{len(track_out_playlist)} tracks out playlist")
         print(f"{len(track_out_playlist)} tracks out playlist")
 
         return track_out_playlist
@@ -309,7 +334,8 @@ class YTMusicClient:
             for track in track_out_playlist:
                 if track["artists"][0]["name"] in playlist_info["artists"]:
                     add_tracks.append(track["videoId"])
-            print (f"Add {len(add_tracks)} tracks to playlist {playlist_info["id"]}")
+            
+            file_logger.info(f"Add {len(add_tracks)} tracks to playlist {playlist_info['id']}")
             if (len(add_tracks)):
                 self.add_playlist_items(playlist_info["id"], add_tracks)
     
@@ -353,34 +379,62 @@ class YTMusicClient:
         print(f"\n✓ Updated playlists map saved to {output_file}")
         print(f"Total playlists in map: {len(playlists_map)}")
 
-    # Download
+    
+    def load_playlist_tracks_map(self, yaml_file: str) -> Dict[str, bool]:
+        """
+        Load a previously saved playlist tracks map from YAML file.
+        
+        Args:
+            yaml_file: Path to the YAML file
+            
+        Returns:
+            Dictionary mapping video_id -> exists (bool)
+        """
+        with open(yaml_file, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+        
+        if "tracks" in data:
+            return data["tracks"]
+        else:
+            return data
+
+    # ===== Download Methods =====
+
     def download_track(
         self, 
         video_id: str, 
         output_path: str = "downloads",
         format_type: str = "mp3",
         quality: str = "best",
-        progress_hooks: Optional[List[callable]] = None
+        progress_hooks: Optional[List[callable]] = None,
+        quiet: bool = True
     ) -> Optional[str]:
         """
         Download a single track from YouTube using yt-dlp.
-        
-        Args:
-            video_id: YouTube video ID
-            output_path: Directory to save the downloaded file
-            format_type: Audio format (mp3, m4a, etc.)
-            quality: Audio quality (best, worst, etc.)
-            progress_hooks: List of callback functions for download progress
-            
-        Returns:
-            Path to downloaded file or None if download failed
         """
+        import sys
+        from contextlib import contextmanager
+        
+        @contextmanager
+        def suppress_output():
+            """Context manager to suppress stdout and stderr"""
+            with open(os.devnull, 'w') as devnull:
+                old_stdout = sys.stdout
+                old_stderr = sys.stderr
+                sys.stdout = devnull
+                sys.stderr = devnull
+                try:
+                    yield
+                finally:
+                    sys.stdout = old_stdout
+                    sys.stderr = old_stderr
+        
         url = f"https://www.youtube.com/watch?v={video_id}"
         
         # Create output directory if it doesn't exist
         Path(output_path).mkdir(parents=True, exist_ok=True)
         
-        # Configure yt-dlp options based on working config
+        # Configure yt-dlp options
         ydl_opts = {
             # Proxy configuration
             'proxy': 'socks5://127.0.0.1:1080',
@@ -396,28 +450,17 @@ class YTMusicClient:
                 'preferredquality': '0' if quality == 'best' else '192',
             }],
             
-            'outtmpl': os.path.join(output_path, '%(title)s.%(ext)s'),
+            'outtmpl': os.path.join(output_path, '%(artist)s - %(title)s.%(ext)s'),
             'concurrent_fragments': 6,
-            'progress': True,
-            'extract_flat': False
+            'progress': not quiet,  # Disable progress if quiet
+            'quiet': quiet,
+            'no_warnings': quiet,
+            'no_color': quiet,
+            'ignoreerrors': True,
+            'extract_flat': False,
         }
         
-        # Try to get metadata for better filename if available
-        try:
-            with yt_dlp.YoutubeDL({'quiet': True, 'extract_flat': True, 'proxy': 'socks5://127.0.0.1:1080'}) as ydl:
-                info = ydl.extract_info(url, download=False)
-                if info and 'artist' in info and 'title' in info:
-                    # Use artist - title format if metadata is available
-                    artist = info.get('artist', 'Unknown')
-                    title = info.get('title', video_id)
-                    # Sanitize filename
-                    safe_artist = "".join(c for c in artist if c.isalnum() or c in ' -_')
-                    safe_title = "".join(c for c in title if c.isalnum() or c in ' -_')
-                    ydl_opts['outtmpl'] = os.path.join(output_path, f'{safe_artist} - {safe_title}.%(ext)s')
-        except:
-            pass  # Fall back to default template
-        
-        # Override audio quality if specified differently
+        # Override audio quality
         quality_map = {
             'best': '0',
             'high': '192',
@@ -431,14 +474,333 @@ class YTMusicClient:
             ydl_opts['progress_hooks'] = progress_hooks
         
         try:
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url, download=True)
-                # Get the actual filename after post-processing
-                filename = ydl.prepare_filename(info)
-                # Change extension to the format we converted to
-                filename = os.path.splitext(filename)[0] + f'.{format_type}'
-                logger.info(f"Downloaded: {filename}")
-                return filename
+            # Use context manager to suppress ALL output if quiet
+            if quiet:
+                with suppress_output():
+                    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                        info = ydl.extract_info(url, download=True)
+                        filename = ydl.prepare_filename(info)
+                        filename = os.path.splitext(filename)[0] + f'.{format_type}'
+                        return filename
+            else:
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(url, download=True)
+                    filename = ydl.prepare_filename(info)
+                    filename = os.path.splitext(filename)[0] + f'.{format_type}'
+                    file_logger.info(f"Downloaded: {filename}")
+                    return filename
         except Exception as e:
-            logger.error(f"Error downloading video {video_id}: {e}")
+            file_logger.error(f"Error downloading video {video_id}: {e}")
             return None
+        
+    def download_all_playlists(
+        self,
+        base_output_path: str = "downloads",
+        format_type: str = "mp3",
+        quality: str = "best",
+        skip_existing: bool = True,
+        playlist_limit: Optional[int] = 100
+    ) -> Dict[str, Dict[str, Any]]:
+        """
+        Download all tracks from all user playlists, organizing by playlist.
+        Checks track existence using video IDs and stores a map for each playlist.
+        
+        Args:
+            base_output_path: Base directory for downloads (creates playlist subfolders)
+            format_type: Audio format (mp3, m4a, etc.)
+            quality: Audio quality (best, high, medium, low)
+            skip_existing: If True, skip already downloaded tracks using video ID tracking
+            playlist_limit: Maximum number of playlists to fetch
+                
+        Returns:
+            Dictionary with playlist names as keys and download statistics as values
+        """
+        # Get all playlists
+        print("\nFetching playlists...")
+        playlists = self.get_playlists(limit=playlist_limit)
+        
+        if not playlists:
+            print("No playlists found.")
+            return {}
+        
+        # Filter out excluded playlists
+        excluded_ids = ["LM", "SE"]
+        playlists = [p for p in playlists if p.get("playlistId") not in excluded_ids]
+        
+        print(f"Found {len(playlists)} playlists")
+        file_logger.info(f"Found {len(playlists)} playlists to download")
+        
+        # Statistics for each playlist
+        download_stats = {}
+        
+        # Create a main progress bar for playlists
+        playlist_pbar = tqdm(
+            total=len(playlists), 
+            desc="Overall progress", 
+            unit="playlist",
+            position=0,
+            bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]"
+        )
+        
+        # Process each playlist
+        for playlist_idx, playlist_metadata in enumerate(playlists, 1):
+            playlist_id = playlist_metadata["playlistId"]
+            playlist_title = playlist_metadata["title"]
+            
+            # Update playlist progress bar description
+            playlist_pbar.set_description(f"Playlist {playlist_idx}/{len(playlists)}: {playlist_title[:50]}")
+            
+            # Sanitize playlist name for folder name
+            safe_playlist_name = "".join(c for c in playlist_title if c not in '/\\:*?"<>|')
+            playlist_output_path = os.path.join(base_output_path, safe_playlist_name)
+            
+            # Create playlist-specific track map file path
+            track_map_file_path = Path(playlist_output_path) / f"track_map_{safe_playlist_name}.yaml"
+            
+            file_logger.info(f"\nProcessing playlist: {playlist_title} (ID: {playlist_id})")
+            
+            # Get tracks in this playlist
+            tracks = self.get_playlist_tracks(playlist_id)
+            
+            if not tracks:
+                file_logger.warning(f"  No tracks found in playlist: {playlist_title}")
+                download_stats[playlist_title] = {
+                    "total": 0,
+                    "downloaded": 0,
+                    "skipped": 0,
+                    "failed": 0,
+                    "path": playlist_output_path,
+                    "track_map_file": str(track_map_file_path)
+                }
+                playlist_pbar.update(1)
+                continue
+            
+            file_logger.info(f"  Found {len(tracks)} tracks in playlist")
+            
+            # Load existing track map for this playlist if it exists
+            track_map = {}
+            existing_video_ids = set()
+            
+            if skip_existing and os.path.exists(track_map_file_path):
+                try:
+                    with open(track_map_file_path, 'r', encoding='utf-8') as f:
+                        track_map = yaml.safe_load(f) or {}
+                    
+                    # Extract video IDs that have valid files
+                    for video_id, track_info in track_map.items():
+                        file_path = track_info.get("file_path")
+                        if file_path and os.path.exists(file_path):
+                            existing_video_ids.add(video_id)
+                        else:
+                            # File missing, mark for re-download
+                            file_logger.warning(f"  Missing file for video ID {video_id}, will re-download")
+                            existing_video_ids.discard(video_id)
+                    
+                    file_logger.info(f"  Loaded track map with {len(track_map)} tracks, {len(existing_video_ids)} exist on disk")
+                    if len(existing_video_ids) > 0:
+                        print(f"  ✓ Loaded track map: {len(existing_video_ids)} already downloaded tracks found")
+                except Exception as e:
+                    print(f"  Warning: Could not load track map: {e}")
+                    track_map = {}
+            
+            # Statistics for this playlist
+            stats = {
+                "total": len(tracks),
+                "downloaded": 0,
+                "skipped": 0,
+                "failed": 0,
+                "path": playlist_output_path,
+                "track_map_file": str(track_map_file_path),
+                "video_ids": {}  # Store mapping of video_id -> download status for this session
+            }
+            
+            # Create output directory if it doesn't exist
+            Path(playlist_output_path).mkdir(parents=True, exist_ok=True)
+            
+            # Create a sub-progress bar for tracks in this playlist
+            track_pbar = tqdm(
+                total=len(tracks), 
+                desc=f"  [{playlist_title[:40]}] Downloading tracks", 
+                unit="track", 
+                position=1,
+                leave=False,
+                bar_format="{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]"
+            )
+            
+            for track in tracks:
+                # Get track info
+                video_id = track.get("videoId")
+                if not video_id:
+                    stats["failed"] += 1
+                    file_logger.warning(f"  No video_id for track: {track.get('title', 'Unknown')}")
+                    track_pbar.update(1)
+                    continue
+                
+                # Get artist and title for logging
+                artists = track.get("artists", [])
+                artist_name = artists[0].get("name", "Unknown Artist") if artists else "Unknown Artist"
+                title = track.get("title", "Unknown Title")
+                
+                # Update track progress bar with current track info
+                track_pbar.set_description(f"  [{playlist_title[:30]}] {artist_name[:20]} - {title[:30]}")
+                
+                # Check if track already exists by video ID in this playlist's track map
+                if skip_existing and video_id in existing_video_ids:
+                    stats["skipped"] += 1
+                    stats["video_ids"][video_id] = {
+                        "status": "skipped", 
+                        "file": track_map.get(video_id, {}).get("file_path", "unknown"),
+                        "title": title,
+                        "artist": artist_name
+                    }
+                    file_logger.info(f"  ✓ Skipped (exists by video ID): {artist_name} - {title} (ID: {video_id})")
+                    track_pbar.update(1)
+                    continue
+                
+                # Log to file before downloading
+                file_logger.info(f"  ↓ Downloading: {artist_name} - {title} (ID: {video_id})")
+                
+                # Download the track
+                downloaded_file = self.download_track(
+                    video_id=video_id,
+                    output_path=playlist_output_path,
+                    format_type=format_type,
+                    quality=quality,
+                    progress_hooks=None,
+                    quiet=True
+                )
+                
+                if downloaded_file and os.path.exists(downloaded_file):
+                    stats["downloaded"] += 1
+                    
+                    # Store in track map
+                    track_map[video_id] = {
+                        "video_id": video_id,
+                        "title": title,
+                        "artist": artist_name,
+                        "file_path": downloaded_file,
+                        "filename": os.path.basename(downloaded_file),
+                        "playlist": playlist_title,
+                        "playlist_id": playlist_id,
+                        "downloaded_at": datetime.now().isoformat()
+                    }
+                    
+                    stats["video_ids"][video_id] = {
+                        "status": "downloaded", 
+                        "file": downloaded_file,
+                        "title": title,
+                        "artist": artist_name
+                    }
+                    
+                    # Add to existing_video_ids for this playlist
+                    existing_video_ids.add(video_id)
+                    
+                    file_logger.info(f"  ✓ Downloaded: {artist_name} - {title} -> {os.path.basename(downloaded_file)}")
+                else:
+                    stats["failed"] += 1
+                    stats["video_ids"][video_id] = {
+                        "status": "failed", 
+                        "error": "download failed",
+                        "title": title,
+                        "artist": artist_name
+                    }
+                    file_logger.error(f"  ✗ Failed: {artist_name} - {title} (ID: {video_id})")
+                
+                # Save track map periodically (every 5 tracks or after each download)
+                if len(stats["video_ids"]) % 5 == 0:
+                    try:
+                        with open(track_map_file_path, 'w', encoding='utf-8') as f:
+                            yaml.dump(track_map, f, allow_unicode=True, default_flow_style=False)
+                    except Exception as e:
+                        file_logger.error(f"Error saving track map: {e}")
+                
+                track_pbar.update(1)
+            
+            # Close track progress bar
+            track_pbar.close()
+            
+            # Final save of track map for this playlist
+            try:
+                with open(track_map_file_path, 'w', encoding='utf-8') as f:
+                    yaml.dump(track_map, f, allow_unicode=True, default_flow_style=False)
+                print(f"  ✓ Track map saved to: {track_map_file_path}")
+                file_logger.info(f"Track map saved with {len(track_map)} tracks")
+            except Exception as e:
+                file_logger.error(f"Error saving final track map: {e}")
+            
+            download_stats[playlist_title] = stats
+            
+            # Update playlist progress bar with summary
+            playlist_pbar.set_postfix_str(f"✓ {stats['downloaded']}↓ {stats['skipped']}⏭ {stats['failed']}✗")
+            
+            # Log playlist summary to file
+            file_logger.info(f"  Playlist '{playlist_title}': {stats['downloaded']} downloaded, "
+                        f"{stats['skipped']} skipped, {stats['failed']} failed")
+            
+            # Print a clean line for this playlist summary
+            print(f"\n✓ Playlist '{playlist_title}': {stats['downloaded']} downloaded, "
+                f"{stats['skipped']} skipped, {stats['failed']} failed")
+            
+            playlist_pbar.update(1)
+        
+        # Close main progress bar
+        playlist_pbar.close()
+        
+        # Print and log overall summary
+        print("\n" + "="*50)
+        print("DOWNLOAD SUMMARY")
+        print("="*50)
+        
+        file_logger.info("\n" + "="*50)
+        file_logger.info("DOWNLOAD SUMMARY")
+        file_logger.info("="*50)
+        
+        total_tracks = 0
+        total_downloaded = 0
+        total_skipped = 0
+        total_failed = 0
+        
+        for playlist_name, stats in download_stats.items():
+            print(f"\n{playlist_name}:")
+            print(f"  Total: {stats['total']}")
+            print(f"  Downloaded: {stats['downloaded']}")
+            print(f"  Skipped: {stats['skipped']}")
+            print(f"  Failed: {stats['failed']}")
+            print(f"  Path: {stats['path']}")
+            print(f"  Track Map: {stats['track_map_file']}")
+            
+            file_logger.info(f"\n{playlist_name}:")
+            file_logger.info(f"  Total: {stats['total']}")
+            file_logger.info(f"  Downloaded: {stats['downloaded']}")
+            file_logger.info(f"  Skipped: {stats['skipped']}")
+            file_logger.info(f"  Failed: {stats['failed']}")
+            file_logger.info(f"  Path: {stats['path']}")
+            file_logger.info(f"  Track Map: {stats['track_map_file']}")
+            
+            total_tracks += stats['total']
+            total_downloaded += stats['downloaded']
+            total_skipped += stats['skipped']
+            total_failed += stats['failed']
+        
+        print("\n" + "="*50)
+        print("TOTALS:")
+        print(f"  Total playlists: {len(download_stats)}")
+        print(f"  Total tracks: {total_tracks}")
+        print(f"  Total downloaded: {total_downloaded}")
+        print(f"  Total skipped: {total_skipped}")
+        print(f"  Total failed: {total_failed}")
+        print("="*50)
+        
+        file_logger.info("\n" + "="*50)
+        file_logger.info("TOTALS:")
+        file_logger.info(f"  Total playlists: {len(download_stats)}")
+        file_logger.info(f"  Total tracks: {total_tracks}")
+        file_logger.info(f"  Total downloaded: {total_downloaded}")
+        file_logger.info(f"  Total skipped: {total_skipped}")
+        file_logger.info(f"  Total failed: {total_failed}")
+        file_logger.info("="*50)
+        file_logger.info(f"Log file saved to: {log_filename}")
+        
+        print(f"\n✓ Detailed log saved to: {log_filename}")
+        
+        return download_stats

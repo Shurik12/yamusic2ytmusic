@@ -32,7 +32,8 @@ class CLI:
         print("4. Print tracks to file")
         print("5. Update playlist map")
         print("6. Distribute tracks by playlists")
-        print("7. Download track")
+        print("7. Download all user playlists")
+        print("8. Download track")
         print("b, back - Return to mode selection")
         print("q, quit, exit - Exit program")
         print("="*50)
@@ -141,7 +142,9 @@ class CLI:
         elif command in ['6', 'distribute']:
             self.ytmusic.distribute_tracks()
         elif command in ['7', 'download']:
-            self.ytmusic.download_track("LobNZ2IoddU")
+            self.ytmusic.download_all_playlists()
+        elif command in ['8', 'download_track']:
+            self.ytmusic.download_track("9zhK-QaEYZY")
         elif command in ['b', 'back']:
             self.mode = None
             print("Returning to mode selection...")

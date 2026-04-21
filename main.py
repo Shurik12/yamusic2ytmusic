@@ -13,13 +13,22 @@ from src import (
     YTMusicClient,
     CLI
 )
+from pathlib import Path
 
 
 def main() -> None:
+    # Create logs directory if it doesn't exist
+    logs_dir = Path("logs")
+    logs_dir.mkdir(exist_ok=True)
+    
     # Parse command line arguments
     args = parse_args()
     
-    # Setup logging first
+    # Setup logging first - use logs directory
+    # Override output path to use logs folder if not absolute path
+    if args.output and not Path(args.output).is_absolute():
+        args.output = str(logs_dir / args.output)
+    
     setup_logging(args.log_level, args.output)
     logger = get_logger(__name__)
     
